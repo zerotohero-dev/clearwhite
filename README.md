@@ -1,2 +1,2 @@
 # clearwhite
-A learning system to scratch my own itch (I’ll add more description later)
+A learning system to scratch my own itch (I’ll add further descriptions later)
