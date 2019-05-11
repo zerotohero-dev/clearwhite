@@ -4,5 +4,8 @@
   "main": "index.js",
   "repository": "git@github.com:jsbites/clearwhite.git",
   "author": "Volkan Özçelik <me@volkan.io>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "prettier": "^1.17.0"
+  }
 }
