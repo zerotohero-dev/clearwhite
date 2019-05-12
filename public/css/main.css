@@ -6,7 +6,6 @@ body {
 }
 
 .clw-wrapper {
-  background: #ccff00;
   height: 100vh;
   display: grid;
   grid-gap: 14px;
@@ -16,13 +15,64 @@ body {
 }
 
 .clw-panel {
-  background: #ffcc00;
 }
 
 .clw-aside {
   grid-area: aside;
+  padding-top: 7px;
+  background: #f0f0f0;
 }
 
 .clw-main {
   grid-area: main;
+  padding: 7px;
+  font-family: "Operator Mono SSm", "SF Mono", "Monaco", "Menlo", "Courier New", "Courier", "monospace";
+  font-weight: 300;
+  font-size: 16px;
 }
+
+.clw-panel li {
+  list-style: none;
+  line-height: 24px;
+}
+
+.clw-panel ul {
+  margin: 0;
+  padding: 0;
+}
+
+ul.clw-file-root > li.clw-file { padding-left: 12px; }
+ul.clw-file-root > li > span.clw-folder { padding-left: 12px; }
+
+ul.clw-file-root > li > ul > li.clw-file { padding-left: 24px; }
+ul.clw-file-root > li > ul > li > span.clw-folder { padding-left: 24px; }
+
+ul.clw-file-root > li > ul > li > ul > li.clw-file { padding-left: 36px; }
+ul.clw-file-root > li > ul > li > ul > li > span.clw-folder { padding-left: 36px; }
+
+li.clw-file {
+  cursor: default;
+  transition: all 0.25s ease-out;
+}
+
+li.clw-file--current {
+  background: #ffffff;
+  pointer-events: none;
+}
+
+span.clw-folder {
+  cursor: default;
+  display: block;
+  transition: all 0.25s ease-out;
+}
+
+li.clw-file:hover {
+  background: #00ff00;
+}
+
+span.clw-folder:hover {
+  background: #00ffff;
+}
+
+
+
