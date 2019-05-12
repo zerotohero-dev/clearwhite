@@ -18,6 +18,16 @@ h2 {
   overflow: auto;
 }
 
+.clw-main p {
+  line-height: 1.7;
+  letter-spacing: 0.5px;
+  margin-bottom: 30px;
+}
+
+.clw-main h2 {
+  margin-bottom: 30px;
+}
+
 .clw-aside {
   overflow: auto;
 }
