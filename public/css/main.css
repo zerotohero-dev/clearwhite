@@ -4,3 +4,25 @@ body {
     BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-size: 16px;
 }
+
+.clw-wrapper {
+  background: #ccff00;
+  height: 100vh;
+  display: grid;
+  grid-gap: 14px;
+  grid-template-areas:
+    "aside main";
+  grid-template-columns: 240px 1fr;
+}
+
+.clw-panel {
+  background: #ffcc00;
+}
+
+.clw-aside {
+  grid-area: aside;
+}
+
+.clw-main {
+  grid-area: main;
+}
