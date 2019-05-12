@@ -5,13 +5,38 @@ body {
   font-size: 16px;
 }
 
+h2 {
+  font-size: 32px;
+  margin-bottom: -7px;
+}
+
+.clw-wrapper h2:first-of-type {
+  margin-top: 7px;
+}
+
+.clw-main {
+  overflow: auto;
+}
+
+.clw-aside {
+  overflow: auto;
+}
+
+p {
+  font-size: 18px;
+  line-height: 1.2;
+}
+
 .clw-wrapper {
   height: 100vh;
   display: grid;
   grid-gap: 14px;
-  grid-template-areas:
-    "aside main";
+  grid-template-areas: 'aside main';
   grid-template-columns: 240px 1fr;
+}
+
+.clw-main {
+  max-width: 850px;
 }
 
 .clw-panel {
@@ -26,14 +51,18 @@ body {
 .clw-main {
   grid-area: main;
   padding: 7px;
-  font-family: "Operator Mono SSm", "SF Mono", "Monaco", "Menlo", "Courier New", "Courier", "monospace";
-  font-weight: 300;
   font-size: 16px;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.clw-main pre {
+  font-family: 'SF Mono', 'Monaco', 'Menlo', 'Courier New', 'Courier',
+    'monospace';
 }
 
 .clw-panel li {
   list-style: none;
-  line-height: 24px;
+  line-height: 32px;
 }
 
 .clw-panel ul {
@@ -41,18 +70,37 @@ body {
   padding: 0;
 }
 
-ul.clw-file-root > li.clw-file { padding-left: 12px; }
-ul.clw-file-root > li > span.clw-folder { padding-left: 12px; }
+.clw-panel svg {
+  vertical-align: center;
+  position: relative;
+  top: 3px;
+}
 
-ul.clw-file-root > li > ul > li.clw-file { padding-left: 24px; }
-ul.clw-file-root > li > ul > li > span.clw-folder { padding-left: 24px; }
+ul.clw-file-root > li.clw-file {
+  padding-left: 12px;
+}
+ul.clw-file-root > li > span.clw-folder {
+  padding-left: 12px;
+}
 
-ul.clw-file-root > li > ul > li > ul > li.clw-file { padding-left: 36px; }
-ul.clw-file-root > li > ul > li > ul > li > span.clw-folder { padding-left: 36px; }
+ul.clw-file-root > li > ul > li.clw-file {
+  padding-left: 24px;
+}
+ul.clw-file-root > li > ul > li > span.clw-folder {
+  padding-left: 24px;
+}
+
+ul.clw-file-root > li > ul > li > ul > li.clw-file {
+  padding-left: 36px;
+}
+ul.clw-file-root > li > ul > li > ul > li > span.clw-folder {
+  padding-left: 36px;
+}
 
 li.clw-file {
   cursor: default;
   transition: all 0.25s ease-out;
+  border-right: 6px #f0f0f0 solid;
 }
 
 li.clw-file--current {
@@ -63,16 +111,15 @@ li.clw-file--current {
 span.clw-folder {
   cursor: default;
   display: block;
-  transition: all 0.25s ease-out;
+  pointer-events: none;
 }
 
 li.clw-file:hover {
-  background: #00ff00;
+  background: #ffffff;
+  border-right: 6px #000000 solid;
 }
 
-span.clw-folder:hover {
-  background: #00ffff;
+li.clw-file.clw-current {
+  background: #ffffff;
+  border-right: 6px #ff8c00 solid;
 }
-
-
-
