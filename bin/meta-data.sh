@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const fs = require('fs');
-const { resolve } = require('path');
+const { resolve, join } = require('path');
 
 const walk = (dir, done) =>{
   const results = [];
@@ -21,7 +21,7 @@ const walk = (dir, done) =>{
       file = resolve(dir, file);
 
       fs.stat(file, (err, stat) => {
-        const shouldWalk = stat && stat.isDirectory();
+        const shouldWalk = stat && stat.isDirectory() && !file.endsWith('node_modules') && !file.endsWith('.git') && !file.endsWith('.idea');
 
         if (shouldWalk) {
           walk(file, (err, res) => {
@@ -36,7 +36,10 @@ const walk = (dir, done) =>{
           return;
         }
 
-        results.push(file);
+        if (!file.endsWith('node_modules') && !file.endsWith('.git') && !file.endsWith('.idea')) {
+          results.push(file);
+        }
+
         pending--;
 
         if (pending === 0) {
@@ -46,3 +49,14 @@ const walk = (dir, done) =>{
     });
   });
 };
+
+walk(join(__dirname, '..'), (err, out) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
+
+  if (out) {
+    console.log(out);
+  }
+});
