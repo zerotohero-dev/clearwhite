@@ -3,60 +3,68 @@
 const fs = require('fs');
 const { resolve, join } = require('path');
 
-const walk = (dir, done) =>{
-  const results = [];
+// to be used:
+// const hljs = require('highlight.js');
 
+const readDir = (dir) => new Promise((resolve, reject) => {
   fs.readdir(dir, (err, list) => {
     if (err) {
-      return done(err);
+      reject(err);
+      return;
     }
 
-    let pending = list.length;
+    resolve(list);
+  });
+});
 
-    if (pending === 0) {
-      return done(null, results);
+const statFile = (file) => new Promise((resolve, reject) => {
+  fs.stat(file, (err, stat) => {
+    if (err) {
+      reject(err);
+      return;
     }
 
-    list.forEach((file) => {
-      file = resolve(dir, file);
+    resolve(stat);
+  });
+});
 
-      fs.stat(file, (err, stat) => {
-        const shouldWalk = stat && stat.isDirectory() && !file.endsWith('node_modules') && !file.endsWith('.git') && !file.endsWith('.idea');
+const isDir = (stat) => !!stat && stat.isDirectory();
 
-        if (shouldWalk) {
-          walk(file, (err, res) => {
-            results.push(...res);
-            pending--;
+const shouldWalk = (dir) => !dir.endsWith('node_modules') &&
+  !dir.endsWith('.git') && !dir.endsWith('.idea');
 
-            if (pending === 0) {
-              done(null, results);
-            }
-          });
+const walk = async (dir) => {
+  const results = [];
+
+  try {
+    await Promise.all((await readDir(dir)).map(async (f) => {
+      try {
+        const file = resolve(dir, f);
+
+        if (isDir(await statFile(file))) {
+          if (shouldWalk(file)) {
+            results.push(...await walk(file));
+          }
 
           return;
         }
 
-        if (!file.endsWith('node_modules') && !file.endsWith('.git') && !file.endsWith('.idea')) {
-          results.push(file);
-        }
+        results.push(file);
+      } catch (ex) {
+        console.error(ex);
+      }
+    }));
+  } catch (err) {
+    console.error(err);
+  }
 
-        pending--;
-
-        if (pending === 0) {
-          done(null, results);
-        }
-      });
-    });
-  });
+  return results;
 };
 
-walk(join(__dirname, '..'), (err, out) => {
-  if (err) {
-    console.error(err);
-    return;
-  }
+const run = async () => {
+  const results = await walk(join(__dirname, '..'));
 
-  if (out) {
-    console.log(out);
-  }
-});
+  console.log(results);
+};
+
+run().then(() => {});
