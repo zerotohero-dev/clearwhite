@@ -1,13 +1,16 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
-const { resolve, join } = require('path');
+const { stat, readFile, readdir } = require('fs');
+const { resolve, join, extname } = require('path');
+
+const showdown = require('showdown');
+const converter = new showdown.Converter();
 
 // to be used:
 // const hljs = require('highlight.js');
 
 const readDir = (dir) => new Promise((resolve, reject) => {
-  fs.readdir(dir, (err, list) => {
+  readdir(dir, (err, list) => {
     if (err) {
       reject(err);
       return;
@@ -18,7 +21,7 @@ const readDir = (dir) => new Promise((resolve, reject) => {
 });
 
 const statFile = (file) => new Promise((resolve, reject) => {
-  fs.stat(file, (err, stat) => {
+  stat(file, (err, stat) => {
     if (err) {
       reject(err);
       return;
@@ -61,16 +64,62 @@ const walk = async (dir) => {
   return results;
 };
 
+const readCode = (path) => new Promise((resolve, reject) =>
+  readFile(path, { encoding: 'utf8' }, (err, data) => {
+    if (err) {
+      reject(err);
+    }
+
+    resolve(data);
+  })
+);
+
+const convertMarkdownToHtml = (md) => converter.makeHtml(md);
+
+
 const run = async () => {
   const results = await walk(join(__dirname, '..'));
 
-  results.forEach((path) => {
+  results.forEach(async (path) => {
     console.log(path);
-    // read content in path
-    // create highlighted markup
-    // save the highlighted markup to public/cw/$path$extension.html
-    // markdown files are an exception:
-    //     convert them directly to html public/cw/$path.html by showdown or something.
+
+    try {
+      const sourceCode = await readCode(path);
+      const extension = extname(path);
+
+      console.log('---------');
+      console.log(path, '::', extension);
+
+      switch (extension.toLowerCase()) {
+        case '.md':
+          const markdown = convertMarkdownToHtml(sourceCode);
+          console.log(markdown);
+          break;
+        case '.css':
+          console.log('unhandled:', path);
+          break;
+        case '.js':
+          console.log('unhandled:', path);
+          break;
+        case '.html':
+          console.log('unhandled:', path);
+          break;
+        case '.sass':
+          console.log('unhandled:', path);
+          break;
+        default:
+          // assume text file by default.
+          console.log('unhandled:', path)
+      }
+
+      console.log('---------');
+      // create highlighted markup
+      // save the highlighted markup to public/cw/$path$extension.html
+      // markdown files are an exception:
+      //     convert them directly to html public/cw/$path.html by showdown or something.
+    } catch (err) {
+      console.error(err);
+    }
   });
 };
 

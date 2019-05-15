@@ -9,6 +9,7 @@
     "prettier": "^1.17.0"
   },
   "dependencies": {
-    "highlight.js": "^9.15.6"
+    "highlight.js": "^9.15.6",
+    "showdown": "^1.9.0"
   }
 }
