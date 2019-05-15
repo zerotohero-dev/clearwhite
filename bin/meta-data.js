@@ -64,7 +64,14 @@ const walk = async (dir) => {
 const run = async () => {
   const results = await walk(join(__dirname, '..'));
 
-  console.log(results);
+  results.forEach((path) => {
+    console.log(path);
+    // read content in path
+    // create highlighted markup
+    // save the highlighted markup to public/cw/$path$extension.html
+    // markdown files are an exception:
+    //     convert them directly to html public/cw/$path.html by showdown or something.
+  });
 };
 
 run().then(() => {});
