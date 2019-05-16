@@ -1,4 +1,6 @@
-(() => {
+(window => {
+  window._cwq = window._cwq || [];
+
   const root = document.querySelector('[data-clearwhite-root]');
   const style = document.createElement('style');
 
@@ -11,7 +13,7 @@
   style.innerHTML = `
     .clw-wrapper {
       display: grid;
-      grid-gap: ${2*GUTTER}px;
+      grid-gap: ${2 * GUTTER}px;
       grid-template-areas: 'aside main';
       grid-template-columns: ${WIDTH_MAIN_ASIDE} 1fr;
     }
@@ -46,4 +48,4 @@
       </aside>
     </div>
   `;
-})();
+})(window);
