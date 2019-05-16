@@ -1,13 +1,15 @@
 #!/usr/bin/env node
 
-const { stat, readFile, readdir } = require('fs');
+const { stat, readFile, writeFile, readdir } = require('fs');
 const { resolve, join, extname } = require('path');
 
 const showdown = require('showdown');
 const converter = new showdown.Converter();
 
-// to be used:
 const hljs = require('highlight.js');
+
+const PROJECT_ROOT = join(__dirname, '..');
+const DATA_DIR = join(PROJECT_ROOT, 'public/data');
 
 const readDir = (dir) => new Promise((resolve, reject) => {
   readdir(dir, (err, list) => {
@@ -74,50 +76,77 @@ const readCode = (path) => new Promise((resolve, reject) =>
   })
 );
 
+// A unique-enough separator.
+const separator = '-_cw_-';
+
 const convertMarkdownToHtml = (md) => converter.makeHtml(md);
+
+const highlightedHtml = ({name, code}) => {
+  if (!name) {
+    return hljs.highlightAuto(code);
+  }
+
+  return hljs.highlight(name, code, true);
+};
+
+const saveDataFile = (name, text) => new Promise((resolve, reject) => {
+  writeFile(join(DATA_DIR, name), text, { encoding: 'utf-8'}, (err) => {
+    if (err) {
+      reject({ success: false, cause: err });
+      return;
+    }
+
+    resolve({ success: true });
+  });
+});
+
+const saveHighlightedHtml = async ({ name, path, code}) => {
+  const html = highlightedHtml({ name, code });
+  const filePath = path.substring(PROJECT_ROOT.length);
+  const fileNameToSave = `${filePath.replace(/\//g, separator)}.html`;
+
+  return saveDataFile(fileNameToSave, html);
+};
+
+
+const saveMarkdownHtml = async ({ path, markdown }) => {
+  const html = convertMarkdownToHtml(markdown);
+  const filePath = path.substring(PROJECT_ROOT.length);
+  const fileNameToSave = `${filePath.replace(/\//g, separator)}.html`;
+
+  return saveDataFile(fileNameToSave, html);
+};
 
 
 const run = async () => {
-  const results = await walk(join(__dirname, '..'));
+  const results = await walk(PROJECT_ROOT);
 
   results.forEach(async (path) => {
-    console.log(path);
-
     try {
       const sourceCode = await readCode(path);
       const extension = extname(path);
 
-      console.log('---------');
-      console.log(path, '::', extension);
-
       switch (extension.toLowerCase()) {
         case '.md':
-          const markdown = convertMarkdownToHtml(sourceCode);
-          console.log(markdown);
+          await saveMarkdownHtml({ path, markdown: sourceCode });
           break;
         case '.css':
-          const highlighted1 = hljs.highlight('css', sourceCode, true);
-          console.log(highlighted1.value);
+          await saveHighlightedHtml({ name: 'css', path, code: sourceCode });
           break;
         case '.js':
-          const highlighted2 = hljs.highlight('css', sourceCode, true);
-          console.log(highlighted2.value);
+          await saveHighlightedHtml({ name: 'js', path, code: sourceCode });
           break;
         case '.html':
-          const highlighted3 = hljs.highlight('css', sourceCode, true);
-          console.log(highlighted3.value);
+          await saveHighlightedHtml({ name: 'html', path, code: sourceCode });
           break;
         case '.sass':
-          const highlighted4 = hljs.highlight('css', sourceCode, true);
-          console.log(highlighted4.value);
+          await saveHighlightedHtml({ name: 'sass', path, code: sourceCode });
           break;
         default:
-          const highlighted5 = hljs.highlightAuto(sourceCode);
-          console.log(highlighted5.value);
+          await saveHighlightedHtml({ path, code: sourceCode });
           break;
       }
 
-      console.log('---------');
       // save the highlighted markup to public/cw/$path$extension.html
       // markdown files are an exception:
       //     convert them directly to html public/cw/$path.html by showdown or something.
