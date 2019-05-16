@@ -7,7 +7,7 @@ const showdown = require('showdown');
 const converter = new showdown.Converter();
 
 // to be used:
-// const hljs = require('highlight.js');
+const hljs = require('highlight.js');
 
 const readDir = (dir) => new Promise((resolve, reject) => {
   readdir(dir, (err, list) => {
@@ -96,24 +96,28 @@ const run = async () => {
           console.log(markdown);
           break;
         case '.css':
-          console.log('unhandled:', path);
+          const highlighted1 = hljs.highlight('css', sourceCode, true);
+          console.log(highlighted1.value);
           break;
         case '.js':
-          console.log('unhandled:', path);
+          const highlighted2 = hljs.highlight('css', sourceCode, true);
+          console.log(highlighted2.value);
           break;
         case '.html':
-          console.log('unhandled:', path);
+          const highlighted3 = hljs.highlight('css', sourceCode, true);
+          console.log(highlighted3.value);
           break;
         case '.sass':
-          console.log('unhandled:', path);
+          const highlighted4 = hljs.highlight('css', sourceCode, true);
+          console.log(highlighted4.value);
           break;
         default:
-          // assume text file by default.
-          console.log('unhandled:', path)
+          const highlighted5 = hljs.highlightAuto(sourceCode);
+          console.log(highlighted5.value);
+          break;
       }
 
       console.log('---------');
-      // create highlighted markup
       // save the highlighted markup to public/cw/$path$extension.html
       // markdown files are an exception:
       //     convert them directly to html public/cw/$path.html by showdown or something.
