@@ -105,7 +105,7 @@ const saveHighlightedHtml = async ({ name, path, code}) => {
   const filePath = path.substring(PROJECT_ROOT.length);
   const fileNameToSave = `${filePath.replace(/\//g, separator)}.html`;
 
-  return saveDataFile(fileNameToSave, html);
+  return saveDataFile(fileNameToSave, html.value);
 };
 
 
