@@ -92,10 +92,10 @@ const convertMarkdownToHtml = md => converter.makeHtml(md);
 
 const highlightedHtml = ({ name, code }) => {
   if (!name) {
-    return hljs.highlightAuto(code);
+    return hljs.fixMarkup(hljs.highlightAuto(code));
   }
 
-  return hljs.highlight(name, code, true);
+  return hljs.fixMarkup(hljs.highlight(name, code, true));
 };
 
 const saveProjectFile = (name, text) =>

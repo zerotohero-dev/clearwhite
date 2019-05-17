@@ -18,13 +18,85 @@
     GUTTER}px;grid-template-areas: 'aside main';grid-template-columns: ${WIDTH_MAIN_ASIDE} 1fr;}
 .clw-main {max-width: ${WIDTH_MAIN_MAX};background: ${COLOR_MAIN_BG};}
 .clw-aside {grid-area: aside;padding-top: ${GUTTER}px;background: ${COLOR_ASIDE_BG};}
-.clw-main {grid-area: main;padding: ${GUTTER}px;}
+.clw-main {grid-area: main;padding: ${GUTTER}px; overflow: auto;}
 .clw-fh {font-size: 18px; padding-left: 7px; padding-right: 7px; margin: 0;padding-top: 7px; padding-bottom: 0;}
 .clw-fl {color: #000000; cursor: default; text-decoration: none; border-right: 6px #f0f0f0 solid; padding-left: 21px; padding-right: 14px; padding-top: 7px; padding-bottom: 7px; display:block;transition: all .35s ease-out}
 .clw-fl:hover {background: #ffffff; border-right: 6px #444444 solid;}
 .clw-fb {margin: 0}
 .clw-selected {background: #ffffff; border-right: 6px #ffa500 solid; pointer-events: none;}
 .clw-selected:hover {background: #ffffff; border-right: 6px #ffa500 solid;}
+.clw-aside {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  }
+  
+  .hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: white;
+  color: black;
+}
+
+.hljs-comment,
+.hljs-quote,
+.hljs-variable {
+  color: #008000;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-built_in,
+.hljs-name,
+.hljs-tag {
+  color: #00f;
+}
+
+.hljs-string,
+.hljs-title,
+.hljs-section,
+.hljs-attribute,
+.hljs-literal,
+.hljs-template-tag,
+.hljs-template-variable,
+.hljs-type,
+.hljs-addition {
+  color: #a31515;
+}
+
+.hljs-deletion,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-meta {
+  color: #2b91af;
+}
+
+.hljs-doctag {
+  color: #808080;
+}
+
+.hljs-attr {
+  color: #f00;
+}
+
+.hljs-symbol,
+.hljs-bullet,
+.hljs-link {
+  color: #00b0e8;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
 `;
 
   document.getElementsByTagName('head')[0].appendChild(style);
@@ -85,7 +157,10 @@
           const a = document.createElement('a');
           a.href = 'javascript:void(0)';
           a.className = 'clw-fl';
+          a.setAttribute('draggable', false);
           a.setAttribute('data-path', section);
+          a.setAttribute('data-file', file);
+
           const t = document.createTextNode(file);
           a.appendChild(t);
           p.appendChild(a);
@@ -125,9 +200,37 @@
       }
 
       selectNode(target);
+
+      const path =
+        target.getAttribute('data-path') === '/'
+          ? ''
+          : target.getAttribute('data-path');
+      const file = target.getAttribute('data-file');
+
+      console.log('file', file);
+      console.log('path', path);
+
+      fetch('/data/' + `${path}/${file}`.replace(/\//g, '-_cw_-') + '.html')
+        .then(res => {
+          return res.text();
+        })
+        .then(html => {
+          document.querySelector('article.clw-main').innerHTML =
+            '<pre><code>' + html + '</code></pre>';
+        })
+        .catch(err => {
+          console.log('problem');
+          console.log(err);
+        });
+    };
+
+    aside.ondragstart = evt => {
+      evt.preventDefault();
     };
 
     aside.appendChild(frag);
+
+    aside.querySelector('a').click();
 
     // debugger;
   });
