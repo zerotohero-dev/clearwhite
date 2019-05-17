@@ -8,3 +8,4 @@ documentation widget that can be embedded in an arbitrary web page.
 - Create a minimal theme css (goal is to let the widget adapt to the overall
   look and feel of the web page that it’s going to be embedded in.
 - More to come later.
+- Babelify cw.js (do an ES6 -> cw.js transformer to make it run in a wider range of user agents)
