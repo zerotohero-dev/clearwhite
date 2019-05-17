@@ -9,9 +9,8 @@ const converter = new showdown.Converter();
 const hljs = require('highlight.js');
 
 const PROJECT_ROOT = join(__dirname, '..');
-const DATA_DIR = join(PROJECT_ROOT, 'public/data');
+// const DATA_DIR = join(PROJECT_ROOT, 'public/data');
 
-console.log('root', PROJECT_ROOT);
 
 const readDir = dir =>
   new Promise((resolve, reject) => {
@@ -140,7 +139,7 @@ const createNavigationTemplate = async results => {
 
     acc[key] = acc[key] || [];
 
-    if (value !== '.DS_Store') {
+    if (value !== '.DS_Store' && value !== 'yarn.lock' && value !== 'package-lock.json') {
       acc[key].push(value);
     }
 
@@ -163,6 +162,18 @@ const run = async () => {
     results.forEach(async path => {
       const sourceCode = await readCode(path);
       const extension = extname(path);
+
+      if (path.indexOf('yarn.lock') > -1) {
+        return;
+      }
+
+      if (path.indexOf('package-lock.json') > -1) {
+        return;
+      }
+
+      if (path.indexOf('.DS_Store') > -1) {
+        return;
+      }
 
       switch (extension.toLowerCase()) {
         case '.md':

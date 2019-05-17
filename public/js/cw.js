@@ -215,8 +215,15 @@
           return res.text();
         })
         .then(html => {
+            if (file.endsWith('.md')) {
+              document.querySelector('article.clw-main').innerHTML = html;
+              return;
+
+            }
+
           document.querySelector('article.clw-main').innerHTML =
-            '<pre><code>' + html + '</code></pre>';
+              '<pre><code>' + html + '</code></pre>';
+
         })
         .catch(err => {
           console.log('problem');
