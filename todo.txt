@@ -3,6 +3,7 @@ Here’s a rough roadmap of things to do.
 This repo will dogfood on itself, so eventually it will create a navigable
 documentation widget that can be embedded in an arbitrary web page.
 
+- integrate it to zerotoherojs.com dashboard
 - Create a script to convert the project folder structure to JSON.
 - Create a generator to convert that JSON into a HTML file tree.
 - Create a minimal theme css (goal is to let the widget adapt to the overall
