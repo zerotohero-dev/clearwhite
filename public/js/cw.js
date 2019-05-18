@@ -96,7 +96,9 @@
 .hljs-strong {
   font-weight: bold;
 }
-
+.clw-nohighlight * {
+  color: #000000 !important;
+}
 `;
 
   document.getElementsByTagName('head')[0].appendChild(style);
@@ -221,8 +223,10 @@
 
             }
 
+          const codeClassname = file.endsWith('.txt') ? 'clw-nohighlight' : '';
+
           document.querySelector('article.clw-main').innerHTML =
-              '<pre><code>' + html + '</code></pre>';
+              `<pre><code class="${codeClassname}">` + html + '</code></pre>';
 
         })
         .catch(err => {

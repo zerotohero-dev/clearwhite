@@ -8,9 +8,8 @@ const converter = new showdown.Converter();
 
 const hljs = require('highlight.js');
 
-const PROJECT_ROOT = join(__dirname, '..');
-// const DATA_DIR = join(PROJECT_ROOT, 'public/data');
-
+const PROJECT_ROOT = process.env.CW_IN || join(__dirname, '..');
+const DATA_DIR = process.env.CW_OUT || join(PROJECT_ROOT, '../clearwhite-data');
 
 const readDir = dir =>
   new Promise((resolve, reject) => {
@@ -99,7 +98,7 @@ const highlightedHtml = ({ name, code }) => {
 
 const saveProjectFile = (name, text) =>
   new Promise((resolve, reject) => {
-    writeFile(join(PROJECT_ROOT, name), text, { encoding: 'utf-8' }, err => {
+    writeFile(join(DATA_DIR, name), text, { encoding: 'utf-8' }, err => {
       if (err) {
         reject({ success: false, cause: err });
         return;
