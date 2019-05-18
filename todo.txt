@@ -9,3 +9,4 @@ documentation widget that can be embedded in an arbitrary web page.
   look and feel of the web page that it’s going to be embedded in.
 - More to come later.
 - Babelify cw.js (do an ES6 -> cw.js transformer to make it run in a wider range of user agents)
+- better handling of "open link in new window" on the main preview area.
