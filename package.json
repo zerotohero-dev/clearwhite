@@ -6,7 +6,7 @@
   "author": "Volkan Özçelik <me@volkan.io>",
   "license": "MIT",
   "devDependencies": {
-    "prettier": "^1.17.0"
+    "prettier": "^1.17.1"
   },
   "dependencies": {
     "highlight.js": "^9.15.6",

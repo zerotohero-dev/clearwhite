@@ -7,5 +7,9 @@
  *  MIT Licensed—see LICENSE.md
  */
 
-.clw-main {background: #dadada;}
-.clw-aside {background: #f0f0f0;}
+const tick = fn =>
+  window.requestAnimationFrame
+    ? window.requestAnimationFrame(fn)
+    : setTimeout(fn, 17);
+
+export { tick };

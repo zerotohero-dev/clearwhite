@@ -1,3 +1,10 @@
+```text
+  Clearwhite: Lesson notes, clarified.
+
+  Clearwhite is a “Zero to Hero” project:
+  https://clearwhite.zerotohero.dev/
+```
+
 MIT License
 
 Copyright (c) 2019 Byte-Sized JavaScript
