@@ -1,0 +1,24 @@
+.clw-wrapper {
+  display: grid;
+  grid-gap: 0;
+  grid-template-areas: 'aside main';
+  grid-template-columns: 442px 1fr;
+}
+.clw-aside {
+  grid-area: aside;
+  padding-top: 7px;
+  overflow: auto;
+}
+.clw-main {
+  grid-area: main;
+  padding: 7px 14px 7px 14px;
+  overflow: auto;
+}
+.clw-fh {
+  padding: 7px 7px 0 7px;
+  margin: 0;
+}
+
+@media only screen and (max-width: 1190px) {
+  .clw-wrapper {display: block;}
+}

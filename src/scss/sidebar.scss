@@ -1,0 +1,28 @@
+.clw-fh {font-size: 18px;}
+
+.clw-fl {cursor: default;}
+.clw-fl {text-decoration: none;}
+.clw-fl {
+  color: #000000;
+  border-right: 6px #f0f0f0 solid;
+  transition: all .35s ease-out;
+}
+.clw-fl {
+  padding: 7px 14px 7px 21px;
+  display:block;
+}
+.clw-fl:hover {
+  background: #ffffff;
+  border-right: 6px #f8c000 solid;
+}
+.clw-selected {background: #ffffff; border-right: 6px #590DA7 solid;}
+.clw-selected {pointer-events: none;}
+.clw-fb {margin: 0}
+.clw-aside {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

@@ -1,0 +1,49 @@
+.clw-code, .clw-content {
+  padding: 28px;
+  max-width: 685px;
+  margin: 0 auto;
+}
+.clw-code, .clw-content {
+  background: #ffffff;
+}
+.clw-code, .clw-content {
+  line-height: 1.5em;
+}
+.clw-paper {
+  margin-top: 14px;
+  border-radius: 1px;
+}
+
+.clw-wrapper pre, .clw-code pre  {
+    font-size: 16px;
+    line-height: 1.2em;
+    font-weight: 400;
+}
+.clw-content a {
+    padding: 4px;
+    transition: all 0.25s ease-out;
+}
+.clw-content a {text-decoration: none;}
+.clw-content a {
+    color: #0D53A2;
+    border-bottom: 4px #ffffff solid;
+}
+.clw-content a:hover {
+    color: #000000;
+    border-bottom: 4px rgba(248, 193, 0, 0.7) solid;
+}
+.clw-content blockquote {
+    padding: 20px;
+    margin-left: 0;
+    margin-right: 14px;
+}
+.clw-content blockquote a {
+    border-bottom: 4px #f0f0f0 solid;
+}
+.clw-content blockquote {
+    background: #f0f0f0;
+    border-left: 6px rgba(248, 193, 0, 0.7) solid;
+}
+.clw-nohighlight * {color: #000000}
+.clw-content pre {padding: 14px; margin: 14px;}
+.clw-content pre {background: #fff2c7;}
