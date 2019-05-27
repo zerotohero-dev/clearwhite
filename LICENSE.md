@@ -7,7 +7,7 @@
 
 MIT License
 
-Copyright (c) 2019 Byte-Sized JavaScript
+Copyright © Volkan Özçelik <me@volkan.io> (https://volkan.io/) and Contrıbutors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
