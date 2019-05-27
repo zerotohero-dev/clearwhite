@@ -5,3 +5,4 @@ public/js/cw-init.js
 .DS_Store
 /public/css/cw.css.map
 /public/css/cw.css
+/public/js/*
