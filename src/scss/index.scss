@@ -11,13 +11,9 @@
  *   https://github.com/zerotohero-dev/clearwhite/blob/master/LICENSE.md
  */
 
-const endsWithMarkdownRegExp = /\.md$/i;
-const isMarkdown = a => a && endsWithMarkdownRegExp.test(a);
-
-const endsWithTextRegExp = /\.txt$/i;
-const isText = a => a && endsWithTextRegExp.test(a);
-
-const dataPath = ({ path, file }) =>
-  DATA_ROOT + `${path}/${file}`.replace(/\//g, SLASH) + '.html';
-
-export { isMarkdown, isText, dataPath };
+@import './layout';
+@import './panels';
+@import './paper';
+@import './sidebar';
+@import './syntax';
+@import './editor';

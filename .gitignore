@@ -3,3 +3,5 @@ node_modules
 public/data/
 public/js/cw-init.js
 .DS_Store
+/public/css/cw.css.map
+/public/css/cw.css

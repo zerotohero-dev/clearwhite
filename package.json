@@ -6,7 +6,11 @@
   "author": "Volkan Özçelik <me@volkan.io>",
   "license": "MIT",
   "devDependencies": {
-    "prettier": "^1.17.1"
+    "prettier": "^1.17.1",
+    "sass": "^1.20.1"
+  },
+  "scripts": {
+    "sass": "bin/sass.sh"
   },
   "dependencies": {
     "highlight.js": "^9.15.6",
