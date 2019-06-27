@@ -174,6 +174,10 @@ const run = async () => {
         return;
       }
 
+      if (sourceCode.trim() === '') {
+        return;
+      }
+
       switch (extension.toLowerCase()) {
         case '.md':
           await saveMarkdownHtml({ path, markdown: sourceCode });
